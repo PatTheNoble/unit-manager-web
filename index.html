@@ -34,10 +34,8 @@
     }
 
     // Function to spawn a new unit at a random position
-    function spawnUnit() {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height;
-      units.push(new Unit(x, y));
+    function spawnUnit(x,y) {
+      units.push(new Unit(x,y));
     }
 
     // Function to draw all units
@@ -55,7 +53,9 @@
     // Initialize the canvas with units and start the animation
     function init() {
       for (let i = 0; i < unitCount; i++) {
-        spawnUnit();
+        const randX = Math.random() * canvas.width;
+        const randY = Math.random() * canvas.height;
+        spawnUnit(randX,randY);
       }
       animate();
     }
