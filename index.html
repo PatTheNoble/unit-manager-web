@@ -3,12 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unit Manager Web Demo</title>
-  <style>
-    body, html { margin: 0; padding: 0; overflow: hidden; background: #1e1e1e; }
-    canvas { display: block; }
-  </style>
+  <title>Unit Manager Demo</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <canvas id="canvas"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const circleCount = 22;
+    const radius = 15;
+    const circles = [];
+
+    class Circle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+      }
+
+      draw() {
+        context.beginPath();
+        context.arc(this.x, this.y, radius, 0, Math.PI * 2);
+        context.fillStyle = 'white';
+        context.fill();
+      }
+    }
+
+    for (let i = 0; i < circleCount; i++) {
+      circles.push(new Circle(Math.random() * canvas.width, Math.random() * canvas.height));
+    }
+
+    function animate() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      circles.forEach(circle => circle.draw());
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
 </body>
 </html>
