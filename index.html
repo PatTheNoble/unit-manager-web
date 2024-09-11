@@ -19,13 +19,15 @@
     const units = [];
     const avoidanceStrength = 0.5;
     const avoidanceRadius = radius * 5;
-    const friction = 0.999;
+    const friction = 0.985;
+    const mouseAttractionStrength = 0.05;
+    var mouseX = 0; mouseY = 0;
 
     // Unit class definition
     class Unit {
       constructor(x, y) {
         this.x = x; this.y = y;
-        this.vx = 1; this.vy = 0;
+        this.vx = 0; this.vy = 0;
       }
       update() {
 
@@ -42,6 +44,15 @@
           }
         });
         
+        // Move towards to mouse location
+        const dxMouse = mouseX - this.x;
+        const dyMouse = mouseY - this.y;
+        const distMouse = Math.hypot(dxMouse, dyMouse);
+        if (distMouse > 0.1) {
+          this.vx += (dxMouse / distMouse) * mouseAttractionStrength;
+          this.vy += (dyMouse / distMouse) * mouseAttractionStrength;
+        }
+
         // Add velocity to position
         this.x += this.vx; 
         this.y += this.vy;
@@ -76,6 +87,11 @@
         unit.draw();
       });
     }
+
+    canvas.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
 
     // Animation loop
     function animate() {
