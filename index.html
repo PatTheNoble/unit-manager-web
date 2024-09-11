@@ -19,6 +19,7 @@
     const units = [];
     const avoidanceStrength = 0.5;
     const avoidanceRadius = radius * 5;
+    const friction = 0.999;
 
     // Unit class definition
     class Unit {
@@ -40,9 +41,13 @@
             }
           }
         });
-
+        
         // Add velocity to position
-        this.x += this.vx; this.y += this.vy;
+        this.x += this.vx; 
+        this.y += this.vy;
+
+        this.vx *= friction;
+        this.vy *= friction;
 
         // Wrap around screen
         if (this.x < 0)this.x = canvas.width;
