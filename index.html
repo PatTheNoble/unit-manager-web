@@ -21,14 +21,18 @@
     // Unit class definition
     class Unit {
       constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.vx = 1;
-        this.vy = 0;
+        this.x = x; this.y = y;
+        this.vx = 1; this.vy = 0;
       }
       update() {
         // Add velocity to position
         this.x += this.vx; this.y += this.vy;
+
+        // Wrap around screen
+        if (this.x < 0)this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
       }
       draw() {
         context.beginPath();
