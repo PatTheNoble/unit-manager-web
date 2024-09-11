@@ -17,6 +17,8 @@
     const unitCount = 22;
     const radius = 15;
     const units = [];
+    const avoidanceStrength = 0.5;
+    const avoidanceRadius = radius * 5;
 
     // Unit class definition
     class Unit {
@@ -25,6 +27,21 @@
         this.vx = 1; this.vy = 0;
       }
       update() {
+
+        // Avoidance / Soft repulsion (add to our velocity based on collision with other units)
+        units.forEach(other => {
+          if (other !== this) {
+            const dx = this.x - other.x;
+            const dy = this.y - other.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < avoidanceRadius) {
+              const force = (avoidanceRadius - dist) / avoidanceRadius * avoidanceStrength;
+              this.vx += (dx / dist) * force;
+              this.vy += (dy / dist) * force;
+            }
+          }
+        });
+
         // Add velocity to position
         this.x += this.vx; this.y += this.vy;
 
