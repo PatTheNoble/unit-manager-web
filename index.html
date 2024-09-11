@@ -23,8 +23,13 @@
       constructor(x, y) {
         this.x = x;
         this.y = y;
+        this.vx = 1;
+        this.vy = 0;
       }
-
+      update() {
+        // Add velocity to position
+        this.x += this.vx; this.y += this.vy;
+      }
       draw() {
         context.beginPath();
         context.arc(this.x, this.y, radius, 0, Math.PI * 2);
@@ -41,7 +46,10 @@
     // Function to draw all units
     function drawUnits() {
       context.clearRect(0, 0, canvas.width, canvas.height);
-      units.forEach(unit => unit.draw());
+      units.forEach(unit => {
+        unit.update();
+        unit.draw();
+      });
     }
 
     // Animation loop
