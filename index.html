@@ -35,9 +35,8 @@
             const dy = this.y - other.y;
             const dist = Math.hypot(dx, dy);
             if (dist < avoidanceRadius) {
-              const force = (avoidanceRadius - dist) / avoidanceRadius * avoidanceStrength;
-              this.vx += (dx / dist) * force;
-              this.vy += (dy / dist) * force;
+              this.vx += (dx / dist) * avoidanceStrength;
+              this.vy += (dy / dist) * avoidanceStrength;
             }
           }
         });
