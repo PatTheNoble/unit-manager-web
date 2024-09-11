@@ -31,7 +31,7 @@
       }
       update() {
 
-        // Avoidance / Soft repulsion (add to our velocity based on collision with other units)
+        // Avoidance / Soft repulsion (add to our velocity based on collision with other units) 
         units.forEach(other => {
           if (other !== this) {
             const dx = this.x - other.x;
@@ -48,7 +48,7 @@
         const dxMouse = mouseX - this.x;
         const dyMouse = mouseY - this.y;
         const distMouse = Math.hypot(dxMouse, dyMouse);
-        if (distMouse > 0.1) {
+        if (distMouse > 0.05) {
           this.vx += (dxMouse / distMouse) * mouseAttractionStrength;
           this.vy += (dyMouse / distMouse) * mouseAttractionStrength;
         }
